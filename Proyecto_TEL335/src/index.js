@@ -18,9 +18,12 @@ app.use(cors());
 const routes = require('./routes/task.routes');
 app.use('/api/tasks', routes);
 //Routes for Excercises
-const exerciseRouter = require('./routes/exercise.routes')
+const exerciseRouter = require('./routes/exercise.routes');
 app.use('/exercise', exerciseRouter);
 
+//Routes for login
+const userRouter = require('./routes/user.routes');
+app.use('/user', userRouter);
 
 //Static files
 app.use(express.static(path.join(__dirname, 'public')));

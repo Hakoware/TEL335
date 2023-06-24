@@ -24,6 +24,12 @@ npm i axios
 #React
 npm i bootstrap
 npm i react-router-dom
+npm i mdb-react-ui-kit
+npm i @fortawesome/fontawesome-free
+
+
+#Mediapipe
+
 
 #Para inicializar mongoDB
 #En una terminal
