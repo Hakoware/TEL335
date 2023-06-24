@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
-
 const User = require('../models/user.js');
+const jwt = require('jsonwebtoken');
+
+
+const createToken = (_id) =>{
+    return jwt.sign({_id}, 'JustAsANExampleThisGoesInEnvironmentVariables', {expiresIn: '3d'})
+}
+
 
 //login
 router.post('/login', async (req, res) =>{
@@ -15,11 +21,14 @@ router.post('/signup', async (req, res) =>{
     try{
         const user = await User.signup(name, username, email, password)
 
-        res.status(200).json({email, user})
+        //Create a token
+        const token = createToken(user._id)
+
+        res.status(200).json({email, token})
 
     }catch(error){
         
-        res.json({status: error});
+        res.status(400).json({error: error.message})
     }
 
 
