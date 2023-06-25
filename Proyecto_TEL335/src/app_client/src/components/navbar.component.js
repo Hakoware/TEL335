@@ -1,30 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-export default class Navbar extends Component {
-
-  render() {
-    return (
+import { useLogout } from '../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
+const Navbar = () => {
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+  const handleClick =() =>{
+    logout()
+  }
+   return (
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
         <Link to="/" className="navbar-brand">Athlete Fit</Link>
         <div className="collpase navbar-collapse">
         <ul className="navbar-nav mr-auto">
-          <li className="navbar-item">
-          <Link to="/ExercisesList" className="nav-link">Exercises</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/test" className="nav-link">Test</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/Sentadilla" className="nav-link">Sentadilla</Link>
-          </li>
-          <li className="navbar-item">
-          <Link to="/login-register" className="nav-link">LoginRegister</Link>
-          </li>
+          {!user &&(
+            <li className="navbar-item">
+              <Link to="/login-register" className="nav-link">LoginRegister</Link>
+            </li>
+          )}
+          {user && (
+            <div>
+              <span>{user.email}</span>
+              <button type="button" class="btn btn-dark" onClick={handleClick}>Log out</button>
+            </div>
+          )}
+
 
         </ul>
         </div>
       </nav>
     );
-  }
 }
+export default Navbar

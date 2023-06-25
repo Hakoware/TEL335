@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+const requireAuth = require('../middleware/requireAuth');
+//Require auth for all exercises routes
+router.use(requireAuth);
+
 const Exercise = require('../models/exercise');
 router.get('/', async (req, res) => {
     const exercises = await Exercise.find();

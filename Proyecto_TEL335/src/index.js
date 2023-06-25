@@ -21,7 +21,7 @@ app.use('/api/tasks', routes);
 const exerciseRouter = require('./routes/exercise.routes');
 app.use('/exercise', exerciseRouter);
 
-//Routes for login
+//Routes for login and register
 const userRouter = require('./routes/user.routes');
 app.use('/user', userRouter);
 

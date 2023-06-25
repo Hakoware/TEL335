@@ -1,33 +1,29 @@
-import './App.css';
-import React from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
+// pages & components
+import Home from './pages/Home'
 import Navbar from "./components/navbar.component";
-import ExercisesList from "./components/exercises-list.component";
-import EditExercise from "./components/edit-exercise.component";
-import Test from "./components/test";
-import Sentadilla from "./components/sentadilla"
-import LoginRegister from "./components/login-register"
-import TestMedia from "./components/testMedia"
-
-
-
+import LoginRegister from "./pages/login-register"
 function App() {
+  const {user} = useAuthContext();
   return (
-    <Router>      
-      <Navbar />
-
-      <br/>
-      <Routes>
-        <Route path="/ExercisesList" exact element={<ExercisesList />} />
-        <Route path="/edit/:id" element={<EditExercise />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/Sentadilla" element={<Sentadilla />} />
-        <Route path="/login-register" element={<LoginRegister />} />
-      </Routes>
-    </Router>
-
-
+    <div className="App">
+      <BrowserRouter>
+        <Navbar />
+        <div className="pages">
+          <Routes>
+            <Route 
+              path="/" 
+              element={user ?  <Home /> : <Navigate to="/login-register" />} 
+            />
+            <Route 
+              path="/login-register" 
+              element={!user ? <LoginRegister /> : <Navigate to="/" />} 
+            />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </div>
   );
 }
 
