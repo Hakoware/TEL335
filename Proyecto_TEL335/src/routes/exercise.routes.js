@@ -7,13 +7,15 @@ router.use(requireAuth);
 
 const Exercise = require('../models/exercise');
 router.get('/', async (req, res) => {
-    const exercises = await Exercise.find();
+    const user = req.user._id
+    const exercises = await Exercise.find({user});
     console.log(exercises);
     res.json(exercises);
 });
 
 router.post('/', async (req, res) =>{
-    const{user, type, total, date, description} = req.body;
+    const user = req.user._id
+    const{type, total, date, description} = req.body;
     const newExcercise = new Exercise({user, type, total, date, description});
     await newExcercise.save();
     console.log(newExcercise);

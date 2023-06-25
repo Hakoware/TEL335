@@ -121,7 +121,7 @@ function LoginRegister() {
             
           </form>
 
-          <p className="text-center">Not a member? <a href="#!">Register</a></p>
+          <p className="text-center">Not a member? <a href="">Register</a></p>
 
         </MDBTabsPane>
 
